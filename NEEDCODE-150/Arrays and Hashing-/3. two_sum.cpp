@@ -10,5 +10,5 @@ public:
             else
                 mapname[nums[i]] = i;
         }
-    }
-};
+    }}
+    ;
