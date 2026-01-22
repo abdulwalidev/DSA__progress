@@ -110,11 +110,7 @@ int main() {
     BST b;
 
     // Insert nodes
-    b.insert(52);
-    b.insert(25);
-    b.insert(50);
-    b.insert(15);
-    b.insert(40);
+  
     b.insert(45);
     b.insert(20);
 
