@@ -1,23 +1,26 @@
 #insertion sort code here:
-Node* i = head;
+Node* sorted = nullptr;
+Node* curr = head;
 
-while (i && i->next) {
-    Node* minNode = i;
-    Node* j = i->next;
+while (curr) {
+    Node* next = curr->next;
 
-    // Find minimum node in remaining list
-    while (j) {
-        if (j->data < minNode->data)  // "<" for ascending
-            minNode = j;
-        j = j->next;
+    if (!sorted || curr->data < sorted->data) {
+        curr->next = sorted;
+        sorted = curr;
+    } else {
+        Node* temp = sorted;
+        while (temp->next && temp->next->data <= curr->data)
+            temp = temp->next;
+
+        curr->next = temp->next;
+        temp->next = curr;
     }
 
-    // Swap data of current node and minNode
-    if (minNode != i)
-        swap(i->data, minNode->data);
-
-    i = i->next;
+    curr = next;
 }
+
+head = sorted;
 
 
 //convert this later
