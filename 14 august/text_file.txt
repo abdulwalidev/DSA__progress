@@ -60,3 +60,23 @@ Decode: `\t\t\t` = `111` in binary = 7 in decimal = 'g' → part of flag.
 
 ---
 
+## Question 4
+**Text:** `666c61677b68696464656e7d`
+
+**Answer: B** - Hex, use `xxd -r -p`
+
+**Example:**
+```bash
+$ echo "666c61677b68696464656e7d" | xxd -r -p
+flag{hidden}
+
+# OR
+$ echo "666c61677b68696464656e7d" | python3 -c "import sys; print(bytes.fromhex(sys.stdin.read().strip()).decode())"
+flag{hidden}
+```
+
+**Hex breakdown:**
+- `66` = 'f', `6c` = 'l', `61` = 'a', `67` = 'g'
+
+---
+
