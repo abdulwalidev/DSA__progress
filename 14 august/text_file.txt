@@ -33,8 +33,30 @@ world
 
 $ xxd mystery.bin | head
 00000000: 7f45 4c46 0102 0100 0000 0000 0000 0000  .ELF............
+
+
+
+## Question 3
+**File content:**
+```
+Hello    world
+Secret   flag
 ```
 
-**Why:** "data" means unknown binary. `strings` finds readable text, `xxd` shows hex patterns.
+**Answer: B** - Hidden in whitespace
+
+**Example:**
+```bash
+$ cat -A file.txt
+Hello    world$
+Secret   flag$
+# Spaces = binary 0, tabs = binary 1
+
+$ od -c file.txt
+0000000 H e l l o \t \t \t w o r l d
+```
+
+Decode: `\t\t\t` = `111` in binary = 7 in decimal = 'g' → part of flag.
 
 ---
+
