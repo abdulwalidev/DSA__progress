@@ -80,3 +80,54 @@ flag{hidden}
 
 ---
 
+## Question 5
+**Recommended Order: B**
+
+**Example Workflow:**
+```bash
+$ file mystery.txt
+mystery.txt: ASCII text
+
+$ cat mystery.txt
+VGhpcyBpcyBhIGZsYWchIQ==
+
+# Pattern = Base64 (has = padding)
+$ echo "VGhpcyBpcyBhIGZsYWchIQ==" | base64 -d
+This is a flag!!
+
+# Found it!
+```
+
+**Another example with multiple layers:**
+```bash
+$ cat secret.txt
+48657820656e636f646564
+
+# Hex pattern detected
+$ echo "48657820656e636f646564" | xxd -r -p
+Hex encoded
+
+# Still encoded? Try base64 on that output, or ROT13, etc.
+```
+
+---
+
+## BONUS: Real CTF Example
+
+**File:** `flag.txt` containing `gur synt vf: synt{lbh_pnak_urpx}`
+
+```bash
+$ cat flag.txt
+gur synt vf: synt{lbh_pnak_urpx}
+
+# Pattern: Looks like English but shifted → ROT13
+$ echo "gur synt vf: synt{lbh_pnak_urpx}" | rot13
+the flag is: flag{you_cant_hack}
+```
+
+**Flag found:** `flag{you_cant_hack}`
+```
+
+**Why:** "data" means unknown binary. `strings` finds readable text, `xxd` shows hex patterns.
+
+---
