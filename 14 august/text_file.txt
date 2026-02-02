@@ -14,3 +14,27 @@ flag{stronger_together}
 **Why:** Base64 always has padding (`=`) and A-Z, a-z, 0-9, +/ chars.
 
 ---
+
+
+## Question 2
+**Scenario:** `file` outputs "data"
+
+**Answer: D** - Both B & C
+
+**Example:**
+```bash
+$ file mystery.bin
+mystery.bin: data
+
+$ strings mystery.bin
+flag{hidden_in_strings}
+hello
+world
+
+$ xxd mystery.bin | head
+00000000: 7f45 4c46 0102 0100 0000 0000 0000 0000  .ELF............
+```
+
+**Why:** "data" means unknown binary. `strings` finds readable text, `xxd` shows hex patterns.
+
+---
