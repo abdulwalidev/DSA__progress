@@ -1,0 +1,16 @@
+# CTF Quiz 1/5 - ANSWERS WITH EXAMPLES
+
+## Question 1
+**Text:** `ZmxhZ3tzdHJvbmdlcl90b2dldGhlcn0=`
+
+**Answer: B** - `base64 -d`
+
+**Example:**
+```bash
+$ echo "ZmxhZ3tzdHJvbmdlcl90b2dldGhlcn0=" | base64 -d
+flag{stronger_together}
+```
+
+**Why:** Base64 always has padding (`=`) and A-Z, a-z, 0-9, +/ chars.
+
+---
