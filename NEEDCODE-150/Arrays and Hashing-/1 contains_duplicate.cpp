@@ -10,7 +10,7 @@ public:
         wali[num]++;	}
 
 
-for(auto &p : wali)
+for(auto &p : wali)//puts the vector into map
             {if(p.second>1)
             {return true;
             }}
