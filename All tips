@@ -4,6 +4,4 @@ for (auto& s : arr) {
 
 freq[arr[i]]++; 
  
-// becomes: freq[arr[i]] = 0 + 1;  so arr[i] -> 1
-
-
+// becomes: freq[arr[i]] = 0 + 1;  so arr[i] -> 4
