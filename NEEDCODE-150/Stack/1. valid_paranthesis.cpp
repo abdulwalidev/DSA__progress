@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stack>
 using namespace std;
-
+//leetcode function 
 bool isValidParentheses(const string& s) {
     stack<char> st;
 
