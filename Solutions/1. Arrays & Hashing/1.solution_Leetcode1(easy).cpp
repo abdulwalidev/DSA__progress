@@ -4,6 +4,8 @@ using namespace std;
 
 class Solution {
 public:
+
+//leetcode function 
     vector<int> twoSum(vector<int>& nums, int target) {
         unordered_map<int, int> mp; // Map to store value -> index
 
