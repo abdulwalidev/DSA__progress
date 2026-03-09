@@ -3,7 +3,7 @@
 #include <string>
 
 using namespace std;
-
+//leetcode function 
 bool isAnagram(string s, string t) {
     if (s.length() != t.length()) 
         return false;
