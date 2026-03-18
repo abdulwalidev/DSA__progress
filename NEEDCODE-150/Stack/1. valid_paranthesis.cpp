@@ -7,6 +7,7 @@
 //maintaining github d5
 //github streak d6
 //maintaning streak d7
+//dsa is so easy d8
 #include <iostream>
 #include <stack>
 using namespace std;
