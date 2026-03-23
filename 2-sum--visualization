@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Two Sum – Step by Step</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#111; color:#fff; }
+  .explain, .code { background:#1e1e1e; padding:15px; margin:10px; border-radius:10px; }
+  .center { text-align:center; }
+  .iteration-label { margin:15px auto; padding:10px; width:60%; border-radius:10px; background:#fff; color:#333; }
+  .container { display:flex; justify-content:center; gap:10px; margin:30px; }
+  .item { display:flex; flex-direction:column; align-items:center; }
+  .box { width:60px; height:60px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:#333; font-size:18px; }
+  .active { background:orange; }
+  .found { background:green; }
+  .buttons button { margin:5px; padding:10px 15px; border:none; border-radius:8px; cursor:pointer; }
+  .explanation-text { margin-top:10px; }
+  .highlight { background:#444; }
+</style>
+</head>
+
+<body>
+
+<div class="explain">
+  <b>Two Sum (Hash Map)</b><br><br>
+  • Iterate through array<br>
+  • For each number, compute complement = target - num<br>
+  • Check if complement exists in map<br>
+  • If yes → pair found ✅<br>
+  • Otherwise store number in map
+</div>
+
+<div class="center">
+  <div class="iteration-label" id="iterLabel">Click "Next Step" to start</div>
+
+  <div class="container" id="container"></div>
+
+  <div class="buttons">
+    <button id="prevStep">Previous Step</button>
+    <button id="nextStep">Next Step</button>
+    <button id="newArray">New Array</button>
+  </div>
+
+  <div class="explanation-text" id="explanationText">Ready to begin</div>
+</div>
+
+<div class="code" id="codeBlock"></div>
+
+<script>
+const CODE = [
+  'for (int i = 0; i < n; i++) {',
+  '  int complement = target - nums[i];',
+  '  if (map contains complement) {',
+  '    return indices;',
+  '  }',
+  '  map[nums[i]] = i;',
+  '}'
+];
+
+let arr = [];
+let target = 0;
+let i = 0;
+let map = {};
+let history = [];
+let done = false;
+
+const container = document.getElementById('container');
+const iterLabel = document.getElementById('iterLabel');
+const explanationText = document.getElementById('explanationText');
+const codeBlock = document.getElementById('codeBlock');
+const nextBtn = document.getElementById('nextStep');
+const prevBtn = document.getElementById('prevStep');
+
+function randomArray() {
+  return Array.from({length:6}, () => Math.floor(Math.random()*15)+1);
+}
+
+function renderArray(activeIndex = -1, foundIndex = -1) {
+  container.innerHTML = '';
+  arr.forEach((val, idx) => {
+    const item = document.createElement('div');
+    item.className = 'item';
+
+    const box = document.createElement('div');
+    box.className = 'box';
+    box.textContent = val;
+
+    if (idx === activeIndex) box.classList.add('active');
+    if (idx === foundIndex) box.classList.add('found');
+
+    item.appendChild(box);
+    container.appendChild(item);
+  });
+}
+
+function renderCode(line = -1) {
+  codeBlock.innerHTML = CODE.map((l, idx) =>
+    `<div class="${idx===line?'highlight':''}">${l}</div>`
+  ).join('');
+}
+
+function saveState() {
+  history.push({ arr:[...arr], i, map:{...map}, done });
+}
+
+function reset() {
+  arr = randomArray();
+  target = arr[0] + arr[1];
+  i = 0;
+  map = {};
+  history = [];
+  done = false;
+  iterLabel.textContent = `Target = ${target}`;
+  explanationText.textContent = 'Start iteration';
+  nextBtn.disabled = false;
+  prevBtn.disabled = true;
+  renderArray();
+  renderCode();
+}
+
+nextBtn.onclick = () => {
+  if (done) return;
+  if (i >= arr.length) {
+    explanationText.textContent = 'No pair found';
+    nextBtn.disabled = true;
+    return;
+  }
+
+  saveState();
+
+  const complement = target - arr[i];
+  renderCode(1);
+  explanationText.textContent = `Checking ${arr[i]}, need ${complement}`;
+  renderArray(i);
+
+  if (map[complement] !== undefined) {
+    renderCode(2);
+    explanationText.textContent = `Found pair: ${arr[i]} + ${complement}`;
+    renderArray(i, map[complement]);
+    done = true;
+    nextBtn.disabled = true;
+    return;
+  }
+
+  map[arr[i]] = i;
+  i++;
+  prevBtn.disabled = false;
+};
+
+prevBtn.onclick = () => {
+  if (!history.length) return;
+  const prev = history.pop();
+  arr = prev.arr;
+  i = prev.i;
+  map = prev.map;
+  done = prev.done;
+  renderArray();
+  renderCode();
+  nextBtn.disabled = false;
+  if (!history.length) prevBtn.disabled = true;
+};
+
+document.getElementById('newArray').onclick = reset;
+
+reset();
+</script>
+
+</body>
+</html>
