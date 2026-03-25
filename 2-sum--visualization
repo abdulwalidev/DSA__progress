@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Two Sum – Step by Step</title>
 <style>
+//function from need code
   body { font-family: Arial, sans-serif; background:#111; color:#fff; }
   .explain, .code { background:#1e1e1e; padding:15px; margin:10px; border-radius:10px; }
   .center { text-align:center; }
